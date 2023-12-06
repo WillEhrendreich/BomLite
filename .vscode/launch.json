@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Live Preview",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/bin/Debug/bomLite.dll",
+      "args": [],
+      "env": {
+        "FUNCUI_LIVEPREVIEW": "1"
+      },
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Normal",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "requireExactSource": false,
+      "program": "${workspaceFolder}/bin/Debug/bomLite.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach"
+    }
+  ]
+}

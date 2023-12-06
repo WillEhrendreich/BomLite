@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Avalonia.FuncUI.LiveView.Analyzer</name></assembly>
+<members>
+<member name="M:Avalonia.FuncUI.LiveView.Analyzer.Library.funcUiAnalyzer(FSharp.Analyzers.SDK.Context)">
+<summary>
+ Analyzer can hook into IDE editing of F# code.
+ This is used to realize LiveView.
+</summary>
+</member>
+</members>
+</doc>

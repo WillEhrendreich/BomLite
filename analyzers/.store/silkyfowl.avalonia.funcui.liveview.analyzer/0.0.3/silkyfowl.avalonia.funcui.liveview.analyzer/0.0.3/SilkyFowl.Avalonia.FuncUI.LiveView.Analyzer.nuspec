@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SilkyFowl.Avalonia.FuncUI.LiveView.Analyzer</id>
+    <version>0.0.3</version>
+    <title>SilkyFowl.Avalonia.FuncUI.LiveView.Analyzer</title>
+    <authors>SilkyFowl</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/SilkyFowl/Avalonia.FuncUI.LiveView</projectUrl>
+    <description>Live fs/fsx previewer for Avalonia.FuncUI.</description>
+    <releaseNotes>* Stable release.</releaseNotes>
+    <copyright>Copyright (c) 2022 SilkyFowl</copyright>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" url="https://github.com/SilkyFowl/Avalonia.FuncUI.LiveView.git" />
+  </metadata>
+</package>

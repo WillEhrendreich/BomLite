@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+      <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>False</AppendRuntimeIdentifierToOutputPath>
+      <PublishSingleFile>True</PublishSingleFile>
+    <DisableImplicitFSharpCoreReference>True</DisableImplicitFSharpCoreReference>
+    <PublishReadyToRun>True</PublishReadyToRun>
+    <PublishTrimmed>False</PublishTrimmed>
+      <OtherFlags>$(OtherFlags) --test:GraphBasedChecking</OtherFlags>
+    <OtherFlags>$(OtherFlags) --test:DumpCheckingGraph</OtherFlags>
+    <OtherFlags>$(OtherFlags) --times:report.csv</OtherFlags>
+    </PropertyGroup>
+  <ItemGroup>
+    <Watch Include="**\*.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    
+    <Compile Include="types.fs" />
+    <Compile Include="connection.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+    <PackageReference Include="sqlprovider" Version="1.3.19" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.3" />
+    <PackageReference Include="Avalonia.FuncUI" Version="1.0.1" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.3" />
+    <PackageReference Include="SilkyFowl.Avalonia.FuncUI.LiveView" Version="0.0.3" />
+    <PackageReference Include="FSharp.Compiler.Service" Version="43.7.300" />
+    <!-- <PackageReference Include="FSharp.Compiler.Service" Version="43.7.401"/> -->
+    <PackageReference Include="FSharp.Core" Version="7.0.300" />
+    <!-- <PackageReference Include="FSharp.Core" Version="7.0.401" /> -->
+  </ItemGroup>
+
+</Project>

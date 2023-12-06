@@ -1,0 +1,10 @@
+{
+    "[fsharp]": {
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.defaultFormatter": "Ionide.Ionide-fsharp",
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2
+    },
+"FSharp.indentationSize": 2,
+    "FSharp.enableAnalyzers": true,
+}
