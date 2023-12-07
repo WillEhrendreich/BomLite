@@ -21,9 +21,9 @@ module connection =
   let getItemMasters ()=
     let resultCtx = tryGetContext()
     match resultCtx with
-      | Result.Error e -> 
+      | Error e -> 
         failwith e.Message 
-      | Result.Ok c -> 
+      | Ok c -> 
         query {
           for x in c.Dbo.ItemMasters ->
             new ItemMaster(
@@ -31,7 +31,8 @@ module connection =
              x.Description,
              x.UnitOfMeasure,
              x.UnitPrice,
-             x.RevisionNumber 
+             x.RevisionNumber,
+             x.IdentityColumn 
             ) 
 
         }
@@ -46,7 +47,7 @@ module connection =
       | Result.Ok c -> 
         query {
           for x in c.Dbo.JobOrderMasters ->
-            x.JobNumber
+              new JobOrderMaster( x.JobNumber, x.Description, x.SalesOrder, x.ParentJobNumber, x.HasSubJobs, x.CompanyName, x.OrderDate, x.DueDate, x.Status,x.IdentityColumn)
         }
       |> List.ofSeq
 
@@ -103,20 +104,22 @@ module connection =
               where (x.JobOrderKey = j.IdentityColumn)
               select (
                 new JobOrderRow(
-                  partNumber = x.PartNumber, 
-                  description = x.Description, 
-                  unitOfMeasure = x.UnitOfMeasure,
-                  unitPrice = x.UnitPrice, 
-                  quantity = x.Quantity,
-                  revisionNumber = x.RevisionNumber, 
-                  jobNumber = j.JobNumber,
-                  itemNumber = x.ItemNumber
+                  x.PartNumber, 
+                  x.Description, 
+                  x.UnitOfMeasure,
+                  x.UnitPrice, 
+                  x.Quantity,
+                  x.RevisionNumber, 
+                  j.JobNumber,
+                  x.ItemNumber,
+                  x.IdentityColumn
               )
                 )
           }
         |> List.ofSeq
 
 
+  // sql.GetDataContext().``Design Time Commands``.ClearDatabaseSchemaCache
 
   
 
