@@ -15,6 +15,36 @@ open Avalonia.FuncUI.LiveView
 open Avalonia.FuncUI.Experimental
 open Avalonia.FuncUI.LiveView.Core.Types
 
+module String=
+  let decimalTryParse (s:string) =
+    let mutable dec = 0m
+    match Decimal.TryParse(s, ref dec) with
+    | true -> Ok dec 
+    | false -> Error 0m
+
+
+  let extractDecimal (s:string) :decimal=
+    match s.Length>0 with
+    |false -> 0.0m 
+    |true -> 
+      let chars = s.ToCharArray()
+      let digitsOrDecimal= 
+        chars 
+        |> Array.filter (fun c -> Char.IsDigit c || c = '.')
+        |> string 
+      match digitsOrDecimal |> decimalTryParse  with
+      |Error e -> e
+      |Ok dec -> dec
+      
+    // |> String
+
+  let extractFloat (s:string) =
+    match s.Length>0 with
+    |false -> 0.0 
+    |true -> 
+      float(s |> extractDecimal)
+
+
 
 type peeps = { Name: string; Age: int }
 
