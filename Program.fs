@@ -50,7 +50,8 @@ type peeps = { Name: string; Age: int }
 
 type myState =
   {
-    Jobs: ObservableCollection<string>
+    CurrentJobSelection: JobOrderMaster
+    Jobs: ObservableCollection<JobOrderMaster>
     ItemMasters: ObservableCollection<ItemMaster>
     BillOfMaterialsItems: ObservableCollection<JobOrderRow>
 
