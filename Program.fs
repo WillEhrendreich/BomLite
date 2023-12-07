@@ -69,9 +69,9 @@ module Main =
         let jobs =  connection.getJobMasters() |> ObservableCollection
         let firstJob = jobs.[0] 
         let state = {
-          Jobs = jobs
-          
-          BillOfMaterialsItems = connection.getJobOrderRows(firstJob) |> ObservableCollection
+          CurrentJobSelection = firstJob
+          Jobs = jobs 
+          BillOfMaterialsItems = connection.getJobOrderRows(firstJob.JobNumber) |> ObservableCollection
           ItemMasters = connection.getItemMasters() |> ObservableCollection} 
         let data = state |> ctx.useState 
 
@@ -80,11 +80,20 @@ module Main =
 
             TextBlock.create [ 
               TextBlock.dock Dock.Top
-              TextBlock.text ( sprintf "JobCurrent : %s" firstJob ) 
+              TextBlock.text ( sprintf "JobCurrent : %s" data.Current.CurrentJobSelection.JobNumber ) 
             ]
             ListBox.create[
               ListBox.dock Dock.Left
               ListBox.dataItems data.Current.Jobs
+              ListBox.itemTemplate (DataTemplateView<_>.create (fun (data: JobOrderMaster) ->
+                TextBlock.create [ TextBlock.text data.JobNumber ]))
+              ListBox.onSelectionChanged (fun  s ->
+                let lb :ListBox= s.Source :?> ListBox
+                data.Set ( {
+                    data.Current with 
+                      CurrentJobSelection = ( lb.SelectedItem :?> JobOrderMaster  )
+                      BillOfMaterialsItems = ( lb.SelectedItem :?> JobOrderMaster  ).JobNumber |> connection.getJobOrderRows |> ObservableCollection
+                          }))
 
               // ListBox.width 75
             ]
