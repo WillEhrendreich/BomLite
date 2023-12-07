@@ -57,7 +57,14 @@ type myState =
 
   }
 
+
+[<RequireQualifiedAccess>]
+type EditJobRowResult =
+    | Cancel
+    | Update of JobOrderRow
+
 module Main =
+  open Avalonia.Interactivity
   // let sqlData =
   //   conn
   [<AbstractClass; Sealed >]
@@ -134,6 +141,49 @@ module Main =
                       TextBox.create [
                         TextBox.init (fun t ->
                           t.Bind(TextBox.TextProperty, Binding("Description", BindingMode.TwoWay))
+                          |> ignore)
+                      ])
+                  )
+                ]
+                DataGridTemplateColumn.create [
+                  DataGridTemplateColumn.header "Rev"
+                  DataGridTemplateColumn.cellTemplate (
+                    DataTemplateView<_>.create (fun (data: JobOrderRow) ->
+                      TextBlock.create [ TextBlock.text data.RevisionNumber ])
+                  )
+                  DataGridTemplateColumn.cellEditingTemplate (
+                    DataTemplateView<_>.create (fun (data: JobOrderRow) ->
+                      TextBox.create [
+                        TextBox.init (fun t ->
+                          t.Bind(TextBox.TextProperty, Binding("RevisionNumber", BindingMode.TwoWay))
+                          |> ignore)
+                        TextBox.onTextInput (fun s -> 
+                          let newText=
+                            match s.Text.Length with
+                              |l when l<1  -> "000"
+                              |l when l>3 -> s.Text.Substring(0,3)
+                              |l -> s.Text.PadLeft(3)
+                          s.Text <- newText
+
+                          data.RevisionNumber<- newText   )
+                      ])
+                  )
+                ]
+                DataGridTemplateColumn.create [
+                  DataGridTemplateColumn.header "Quantity"
+                  DataGridTemplateColumn.cellTemplate (
+                    DataTemplateView<_>.create (fun (data: JobOrderRow) ->
+                      TextBlock.create [ TextBlock.text (data.Quantity |> string)])
+                  )
+                  DataGridTemplateColumn.cellEditingTemplate (
+                    DataTemplateView<_>.create (fun (data: JobOrderRow) ->
+                      TextBox.create [
+                        TextBox.init (fun t ->
+                          t.AddHandler(
+                            TextBox.TextInputEvent,
+                            (fun sender args -> args.Text <- String.filter (fun c -> Char.IsDigit c || c = '.') args.Text),
+                            RoutingStrategies.Tunnel)
+                          t.Bind(TextBox.TextProperty, Binding("Quantity", BindingMode.TwoWay))
                           |> ignore)
                       ])
                   )
